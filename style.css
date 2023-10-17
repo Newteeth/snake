@@ -1,0 +1,70 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 10px;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    gap: 10px;
+}
+.count{
+    display: flex;
+    justify-content: space-between;
+    height: 10%;
+    min-width: 50%;
+    border: solid 2px black;
+    padding: 5px;
+}
+.count_number{
+    background-color: brown;
+    min-width: 10%;
+    border-radius: 10%;
+    border: solid 2px black;
+}
+.record{
+    background-color: green;
+    min-width: 10%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10%;
+    border: solid 2px black;
+}
+.record p{
+    font-size: 30px;
+}
+.speed_round{
+    background-color: blue;
+    min-width: 10%;
+    border-radius: 10%;
+    border: solid 2px black;
+}
+.canvas{
+    max-width: 500px;
+    max-height: 600px;
+    background-color: aqua;
+    border: solid 2px black;
+    margin: 20px;
+}
+
+.btn_click{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50%;
+    min-height: 10%;
+}
+.btn{
+    padding: 8px;
+    color: blue;
+    font-size: 30px;
+    border-radius: 100%;
+    box-shadow: 0 0 5px 5px rgb(57, 55, 55);
+}
