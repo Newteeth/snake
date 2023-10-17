@@ -5,31 +5,23 @@ canvas.width = 400
 canvas.height = 400
 const cageW = canvas.width
 const cageH = canvas.height
-const requestAnimationFrame =
-    window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame
-const cancelAnimationFrame = 
-    window.cancelAnimationFrame ||
-    window.mozcancelAnimationFrame ||
-    window.webkitcancelAnimationFrame ||
-    window.mscancelAnimationFrame
+const requestAnimationFrame = window.requestAnimationFrame 
+const cancelAnimationFrame = window.cancelAnimationFrame
 
 let  letVarieble = {
     x: 197,
     y: 200,
     x1: Math.floor(Math.random() * cageW),
     y1: Math.floor(Math.random() * cageW),
-    boxRow: 40,
-    lineThickness: 1
+    boxRow: 10,
+    lineThickness: 1,
+    animationID: '',
+    count: 1,
+    arrayRect: []
 }
-let { x, y, x1, y1, boxRow, lineThickness } = letVarieble
+let { x, y, x1, y1, boxRow, lineThickness, animationID, count, arrayRect } = letVarieble
 const box = Math.floor(cageW / boxRow)
 
-// function growthSnake(count){
-//     return ctx.fillRect(x - box  * (count), y, box, box)
-// }
 function Rectangle(x, y, box, color, speed){
     this.x = x,
     this.y = y,
@@ -43,19 +35,13 @@ Rectangle.prototype.drow = function(){
     ctx.fillRect(x, y, box, box)
     ctx.strokeRect(x, y, box, box);
 }
-Rectangle.prototype.update = function (args) {
-    
-    // console.log('Rectangle ====>', args)
-    const array = []
-    array.push(x, y)
-    // console.log(array)
-    x = array[0]
-    y = array[1]
-    if (args === 'ArrowLeft')  x -= this.speed
-    if (args === 'ArrowRight') x += this.speed
-    if (args === 'ArrowUp')    y -= this.speed
-    if (args === 'ArrowDown')  y += this.speed
-    if (args == 'start')       x += this.speed
+Rectangle.prototype.update = function (...args) {
+    let [ ars ] = args
+
+    if (ars === 'ArrowLeft') x -= this.speed
+    if (ars === 'ArrowRight' || ars == 'start') x += this.speed
+    if (ars === 'ArrowUp')   y -= this.speed
+    if (ars === 'ArrowDown') y += this.speed
     
     if (x > canvas.width)  x = -box
     if (x < - box)         x = canvas.width
@@ -63,26 +49,17 @@ Rectangle.prototype.update = function (args) {
     if (y < - box)         y = canvas.height
 }
 const rectangle = new Rectangle(x, y, box, 'black', 3)
+
 let data = {
-    button: '',
-    // arrayXY: [],
-    arrayRect: [],
-    count: 1,
     handleKeyDown: function(event) {
-        // console.log(getEventListeners(event))
+        cancelAnimationFrame(animationID)
         if (event.type == 'click') {
             const click = event.target.innerText.toLowerCase()
             this.loop(click)
-            
-            // event = null
-            // cancelAnimationFrame(this.str)
-
         }
         if (event.type == 'keydown') {
             const key = event.key
             this.loop(key)
-            
-            // cancelAnimationFrame(this.str)
         }
     },
     loop: function(args){
@@ -91,18 +68,47 @@ let data = {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             rectangle.drow()
             rectangle.update(args)
-            // cancelAnimationFrame(this.str)
-            requestAnimationFrame(str)
+            animationID = requestAnimationFrame(str)
         })
     }
-
 }
-
 document.addEventListener('keydown', data.handleKeyDown.bind(data))
 const btn = document.querySelector('.btn')
 btn.addEventListener('click', data.handleKeyDown.bind(data))
 
 
+
+
+
+
+
+
+
+
+// function growthSnake(count){
+//     return ctx.fillRect(x - box  * (count), y, box, box)
+// }
+
+
+// Object.prototype.on = function(){
+//     const args = Array.prototype.slice.call(arguments)
+
+//     if(typeof this.listeners === 'undefined') {
+//         const listeners = []
+//     }
+//     const listener = {
+//         type: args[0],
+//         func: args[1]
+//     }
+//     this.listeners.push(listener)
+//     this.addEventListener.apply(this. args)
+
+// }
+
+// Object.prototype.listener = function(){
+//     console.log(this.listeners)
+//     return this.listeners
+// }
 //   function loop() {
 //     ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
 //     ctx.fillRect(0, 0, width, height);
