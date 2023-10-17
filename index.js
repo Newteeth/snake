@@ -72,8 +72,6 @@ let data = {
         // console.log(getEventListeners(event))
         if (event.type == 'click') {
             const click = event.target.innerText.toLowerCase()
-            event.preventDefault();
-            event.stopPropagation();
             this.loop(click)
             
             // event = null
@@ -82,8 +80,6 @@ let data = {
         }
         if (event.type == 'keydown') {
             const key = event.key
-            event.preventDefault();
-            event.stopPropagation();
             this.loop(key)
             
             // cancelAnimationFrame(this.str)
